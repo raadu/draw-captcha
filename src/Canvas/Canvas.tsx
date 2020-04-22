@@ -1,4 +1,6 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState, Fragment} from 'react';
+import canvasCSS from './Canvas.module.scss';
+import ColorPicker from './../ColorPicker/ColorPicker';
 
 //Props passed for Canvas width and Height of the page
 interface CanvasProps {
@@ -125,10 +127,18 @@ const Canvas = ({width, height}: CanvasProps) => {
     },[exitPaint]);
 
     return (
-        <canvas
-            ref={canvasRef} 
-            height={height} 
-            width={width} />
+        <Fragment>
+            <ColorPicker
+                width={600}
+                height={100}/>
+
+            <canvas
+                className={canvasCSS.canvas}
+                ref={canvasRef}
+                height={height}
+                width={width} />
+        </Fragment>
+        
     );
 }; //end of Canvas func comp
 
