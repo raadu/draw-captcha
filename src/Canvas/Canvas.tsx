@@ -21,6 +21,7 @@ const Canvas = ({width, height}: CanvasProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isPainting, setIsPainting] = useState(false);
     const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
+    const [strokeColor, setStrokeColor] = useState("black");
 
     //Function for getting coordinates value from mouse movement
     const getCoordinates = (event: MouseEvent): Coordinate | undefined => {
@@ -55,6 +56,11 @@ const Canvas = ({width, height}: CanvasProps) => {
         [isPainting, mousePosition]
     );
 
+    //Function for setting stroke color 
+    const setStrokeStyle = (color: string) => {
+        setStrokeColor(color);
+    }
+
     //Function for drawing line on canvas
     const drawLine = (originalMousePosition: Coordinate, newMousePosition: Coordinate) => {
         if(!canvasRef.current) {
@@ -64,7 +70,7 @@ const Canvas = ({width, height}: CanvasProps) => {
         const canvas: HTMLCanvasElement = canvasRef.current;
         const context = canvas.getContext('2d');
         if(context) {
-            context.strokeStyle = 'red';
+            context.strokeStyle = strokeColor;
             context.lineJoin = 'round';
             context.lineWidth = 5;
 
@@ -130,7 +136,8 @@ const Canvas = ({width, height}: CanvasProps) => {
         <Fragment>
             <ColorPicker
                 width={600}
-                height={100}/>
+                height={50}
+                setStrokeStyle={setStrokeStyle}/>
 
             <canvas
                 className={canvasCSS.canvas}

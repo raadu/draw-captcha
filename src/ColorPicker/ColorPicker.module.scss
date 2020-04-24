@@ -2,3 +2,42 @@
     background-color: #E5E7E9;
     border: 1px solid #17202A;
 }
+
+.gridContainer {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: #2196F3;
+    padding: 0px;
+}
+
+@mixin gridItemCommon {
+    border: 1px solid #17202A;
+    padding: 0px;
+    text-align: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.gridItem1 {
+    @include gridItemCommon;
+    background-color: red;
+}
+
+.gridItem2 {
+    @include gridItemCommon;
+    background-color: green;
+}
+
+.gridItem3 {
+    @include gridItemCommon;
+    background-color: blue;
+}
+
+.gridItem4 {
+    @include gridItemCommon;
+    background-color: black;
+}
