@@ -83,6 +83,20 @@ const Canvas = ({width, height}: CanvasProps) => {
         }
     };
 
+    //Function for clearing paint area
+    const clearArea = () => {
+        if(!canvasRef.current) {
+            return;
+        }
+
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        const context = canvas.getContext('2d');
+        if(context) {
+            context.setTransform(1, 0, 0, 1, 0, 0);
+            context.clearRect(0, 0, width, height);
+        }
+    }
+
     //Function for exiting the line drawing
     const exitPaint = useCallback(()=> {
         setIsPainting(false);
@@ -144,8 +158,11 @@ const Canvas = ({width, height}: CanvasProps) => {
                 ref={canvasRef}
                 height={height}
                 width={width} />
-        </Fragment>
-        
+
+            <div className={canvasCSS.clearButton} style={{width:`${width}px`, height: `${height}px`}}>
+                <button className={canvasCSS.button} onClick={()=>clearArea()}>Clear</button>
+            </div>
+        </Fragment>  
     );
 }; //end of Canvas func comp
 
