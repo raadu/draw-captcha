@@ -149,7 +149,7 @@ const Canvas = ({width, height}: CanvasProps) => {
     return (
         <Fragment>
             <ColorPicker
-                width={600}
+                width={width}
                 height={50}
                 setStrokeStyle={setStrokeStyle}/>
 
@@ -159,7 +159,7 @@ const Canvas = ({width, height}: CanvasProps) => {
                 height={height}
                 width={width} />
 
-            <div className={canvasCSS.clearButton} style={{width:`${width}px`, height: `${height}px`}}>
+            <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
                 <button className={canvasCSS.button} onClick={()=>clearArea()}>Clear</button>
             </div>
         </Fragment>  

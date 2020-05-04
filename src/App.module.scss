@@ -3,3 +3,17 @@
     height: 100vh;
     background-color:#82E0AA;
 }
+
+.container div {
+    float: left;
+    clear: none;
+}
+
+.imageContainer {
+    width: 600px;
+    height: 715px;
+    background-color: #82E0AA;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
