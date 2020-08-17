@@ -42,9 +42,11 @@ const Canvas = ({width, height}: CanvasProps) => {
         };
     };
 
+
     //Function for start painting when mouse clicked
     const startPaint = useCallback((event: MouseEvent)=>{
         const coordinates = getCoordinates(event);
+        console.log("coordinates", coordinates);
         if(coordinates) {
             setIsPainting(true);
             setMousePosition(coordinates);
@@ -89,8 +91,12 @@ const Canvas = ({width, height}: CanvasProps) => {
             context.closePath();
 
             context.stroke();
+
+            
         }
     };
+
+    
 
     //Function for clearing paint area
     const clearArea = () => {
@@ -103,6 +109,24 @@ const Canvas = ({width, height}: CanvasProps) => {
         if(context) {
             context.setTransform(1, 0, 0, 1, 0, 0);
             context.clearRect(0, 0, width, height);
+        }
+    }
+
+    //Get coordinate data of the currently drawn image
+    const getImageData = () => {
+        if(!canvasRef.current) {
+            return;
+        }
+
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        const context = canvas.getContext('2d');
+
+        if(context) {
+            //get image data
+            let imageData = context.getImageData(0,0,width,height);
+            //copy the imagedata (exact copy of the drawn image will be pasted in canvas)
+            context.putImageData(imageData, 10, 70);
+            console.log("imagedata", imageData);
         }
     }
 
@@ -160,16 +184,22 @@ const Canvas = ({width, height}: CanvasProps) => {
             <ColorPicker
                 width={width}
                 height={50}
-                setStrokeStyle={setStrokeStyle}/>
+                setStrokeStyle={setStrokeStyle}
+            />
 
             <canvas
                 className={canvasCSS.canvas}
                 ref={canvasRef}
                 height={height}
-                width={width} />
+                width={width} 
+            />
 
             <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
                 <button className={canvasCSS.button} onClick={()=>clearArea()}>Clear</button>
+            </div>
+
+            <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
+                <button className={canvasCSS.button} onClick={()=>getImageData()}>Get Image Data</button>
             </div>
         </Fragment>  
     );
