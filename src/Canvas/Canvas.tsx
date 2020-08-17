@@ -1,4 +1,10 @@
-import React, {useCallback, useEffect, useRef, useState, Fragment} from 'react';
+import React, {
+    useCallback, 
+    useEffect, 
+    useRef, 
+    useState, 
+    Fragment,
+ } from 'react';
 import canvasCSS from './Canvas.module.scss';
 import ColorPicker from './../ColorPicker/ColorPicker';
 
@@ -30,7 +36,10 @@ const Canvas = ({width, height}: CanvasProps) => {
         }
 
         const canvas: HTMLCanvasElement = canvasRef.current;
-        return { x: event.pageX - canvas.offsetLeft, y: event.pageY - canvas.offsetTop };
+        return { 
+            x: event.pageX - canvas.offsetLeft, 
+            y: event.pageY - canvas.offsetTop 
+        };
     };
 
     //Function for start painting when mouse clicked
