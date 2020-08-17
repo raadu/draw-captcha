@@ -19,7 +19,6 @@ const ColorPicker = ({width, height, setStrokeStyle}: ColorPickerProps) => {
                 <div className={colorPickerCSS.gridItem3} onClick={() => setStrokeStyle("blue")}></div>  
                 <div className={colorPickerCSS.gridItem4} onClick={() => setStrokeStyle("black")}></div>
             </div>
-
         </div>
     );
 }
