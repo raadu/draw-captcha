@@ -181,25 +181,32 @@ const Canvas = ({width, height}: CanvasProps) => {
 
     return (
         <Fragment>
-            <ColorPicker
-                width={width}
-                height={50}
-                setStrokeStyle={setStrokeStyle}
-            />
-
-            <canvas
-                className={canvasCSS.canvas}
-                ref={canvasRef}
-                height={height}
-                width={width} 
-            />
-
-            <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
-                <button className={canvasCSS.button} onClick={()=>clearArea()}>Clear</button>
-            </div>
-
-            <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
-                <button className={canvasCSS.button} onClick={()=>getImageData()}>Get Image Data</button>
+            <div className={canvasCSS.canvasContainer}>
+                <div className={canvasCSS.element1}>
+                    <ColorPicker
+                        width={width}
+                        height={50}
+                        setStrokeStyle={setStrokeStyle}
+                    />
+                </div>
+                <div className={canvasCSS.element2}>
+                    <canvas
+                        className={canvasCSS.canvas}
+                        ref={canvasRef}
+                        height={height}
+                        width={width} 
+                    />
+                </div>
+                <div className={canvasCSS.element3}>
+                    <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
+                        <button className={canvasCSS.button} onClick={()=>clearArea()}>Clear</button>
+                    </div>
+                </div>
+                <div className={canvasCSS.element4}>
+                    <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
+                        <button className={canvasCSS.button} onClick={()=>getImageData()}>Get Image Data</button>
+                    </div>
+                </div>
             </div>
         </Fragment>  
     );

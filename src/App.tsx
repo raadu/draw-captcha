@@ -1,19 +1,24 @@
 import React from 'react';
 import appCSS from './App.module.scss';
 import Canvas from './Canvas/Canvas';
+import DefaultCanvas from './DefaultCanvas/DefaultCanvas';
 
 const App = () => {
   return (
     <div className={appCSS.mainWindow}>
-      <div className={appCSS.container}>
-      <div 
-        className={appCSS.imageContainer} 
-        style={{backgroundImage: "url(./sample/starRed.png)"}}>
-      </div>
-      <Canvas 
-        width={600} 
-        height={600}
-      />
+      <div className={appCSS.canvasContainer}>
+        <div className={appCSS.canvas1}>
+          <DefaultCanvas
+            width={600}
+            height={600}
+          />
+        </div>
+        <div className={appCSS.canvas2}>
+          <Canvas
+            width={600} 
+            height={600}
+          />
+        </div>
       </div>
     </div>
   );

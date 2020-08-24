@@ -4,10 +4,23 @@
     background-color:#82E0AA;
 }
 
-.container div {
-    float: left;
-    clear: none;
+.canvasContainer {
+    display: flex;
+    flex-direction: row;
 }
+
+.canvas1 {
+    margin-top: 50px;
+}
+
+.canvas2 {
+    
+}
+
+// .container div {
+//     float: left;
+//     clear: none;
+// }
 
 .imageContainer {
     width: 600px;
