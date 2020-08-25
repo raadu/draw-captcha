@@ -1,12 +1,13 @@
 import React, {
-    useCallback, 
     useEffect, 
     useRef, 
-    useState, 
     Fragment,
+    useCallback,
+    useState,
+    useContext,
  } from 'react';
 import canvasCSS from '../Canvas/Canvas.module.scss';
-import ColorPicker from './../ColorPicker/ColorPicker';
+import {ImageDataContext} from '../contexts/ImageDataContext';
 
 //Props passed for Canvas width and Height of the page
 interface CanvasProps {
@@ -18,6 +19,12 @@ const DefaultCanvas = ({width, height}: CanvasProps) => {
 
     //States
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    // const [defaultImageData, setDefaultImageData] = useState({});
+
+    //Context Data
+    const {defaultImageData, setImageData} = useContext(ImageDataContext);
+
+    console.log(defaultImageData);
 
     useEffect(() => {
         drawImage();
@@ -40,11 +47,25 @@ const DefaultCanvas = ({width, height}: CanvasProps) => {
 
         let imageData = context?.getImageData(0,0,width,height);
 
-        console.log("render");
-        console.log("imageData", imageData);
+
+        console.count("render default canvas");
+        console.log("imageData in default canvas", imageData);
     }
 
+    function copyImageData() {
+        if(!canvasRef.current) {
+            return;
+        }
 
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+
+        if(context) {
+            let imageData = context.getImageData(0,0,width,height);
+            console.log(imageData);
+        }
+    }
+    
     return (
         <Fragment>
             <canvas
@@ -53,7 +74,15 @@ const DefaultCanvas = ({width, height}: CanvasProps) => {
                 height={height}
                 width={width} 
             />
-        </Fragment>  
+            <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
+                <button 
+                    className={canvasCSS.button} 
+                    onClick={()=>copyImageData()}
+                >
+                    Copy Image Data
+                </button>
+            </div>
+        </Fragment>
     );
 }
 
