@@ -22,9 +22,14 @@ const DefaultCanvas = ({width, height}: CanvasProps) => {
     // const [defaultImageData, setDefaultImageData] = useState({});
 
     //Context Data
-    const {defaultImageData, setImageData} = useContext(ImageDataContext);
+    // const {defaultImageData, setImageData} = useContext(ImageDataContext);
+    const useImageContext = () => useContext(ImageDataContext);
+    const userImageData = useImageContext();
 
-    console.log(defaultImageData);
+
+    
+
+    // console.log("default image context data", userImageData);
 
     useEffect(() => {
         drawImage();
@@ -48,8 +53,8 @@ const DefaultCanvas = ({width, height}: CanvasProps) => {
         let imageData = context?.getImageData(0,0,width,height);
 
 
-        console.count("render default canvas");
-        console.log("imageData in default canvas", imageData);
+        // console.count("render default canvas");
+        // console.log("imageData in default canvas", imageData);
     }
 
     function copyImageData() {
@@ -62,7 +67,11 @@ const DefaultCanvas = ({width, height}: CanvasProps) => {
 
         if(context) {
             let imageData = context.getImageData(0,0,width,height);
-            console.log(imageData);
+            // if(imageData!==undefined) {
+            //     setImageData(imageData);
+            // }
+            console.log("imageData from defaultcanvas: ", imageData);
+            // setImageData(imageData);
         }
     }
     
