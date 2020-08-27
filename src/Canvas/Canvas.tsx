@@ -12,6 +12,7 @@ import ColorPicker from './../ColorPicker/ColorPicker';
 interface CanvasProps {
     width: number;
     height: number;
+    defaultImageData: {},
 }
 
 //Mouse movement coordinates
@@ -21,13 +22,18 @@ type Coordinate = {
 };
 
 //Canvas functional component
-const Canvas = ({width, height}: CanvasProps) => {
+const Canvas = ({
+    width, 
+    height, 
+    defaultImageData,
+}: CanvasProps) => {
     
     //States
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [isPainting, setIsPainting] = useState(false);
     const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
     const [strokeColor, setStrokeColor] = useState("black");
+    const [drawnImageData, setDrawnImageData] = useState({});
 
     //Function for getting coordinates value from mouse movement
     const getCoordinates = (event: MouseEvent): Coordinate | undefined => {
@@ -36,7 +42,7 @@ const Canvas = ({width, height}: CanvasProps) => {
         }
 
         const canvas: HTMLCanvasElement = canvasRef.current;
-        return { 
+        return {
             x: event.pageX - canvas.offsetLeft, 
             y: event.pageY - canvas.offsetTop 
         };
@@ -91,12 +97,9 @@ const Canvas = ({width, height}: CanvasProps) => {
             context.closePath();
 
             context.stroke();
-
-            
         }
     };
 
-    
 
     //Function for clearing paint area
     const clearArea = () => {
@@ -125,10 +128,28 @@ const Canvas = ({width, height}: CanvasProps) => {
             //get image data
             let imageData = context.getImageData(0,0,width,height);
             //copy the imagedata (exact copy of the drawn image will be pasted in canvas)
-            context.putImageData(imageData, 10, 70);
-            console.log("imagedata", imageData);
+            // context.putImageData(imageData, 10, 70);
+            // console.log("imagedata", imageData);
+            setDrawnImageData(imageData);
         }
     }
+
+    //Get coordinate data of the default canvas image
+    const drawDefaultImageData = () => {
+        if(!canvasRef.current) {
+            return;
+        }
+
+        const canvas: HTMLCanvasElement = canvasRef.current;
+        const context = canvas.getContext('2d');
+
+        if(context) {
+            if(defaultImageData instanceof ImageData) {
+                context.putImageData(defaultImageData,0,0);
+            }
+        }
+    }
+
 
     //Function for exiting the line drawing
     const exitPaint = useCallback(()=> {
@@ -206,6 +227,14 @@ const Canvas = ({width, height}: CanvasProps) => {
                     <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
                         <button className={canvasCSS.button} onClick={()=>getImageData()}>Get Image Data</button>
                     </div>
+                </div>
+                <div className={canvasCSS.element5}>
+                    <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
+                        <button className={canvasCSS.button} onClick={()=>drawDefaultImageData()}>Draw Default Image</button>
+                    </div>
+                </div>
+                <div>
+                    {drawnImageData===defaultImageData ? "Matched": "Not Matched"}
                 </div>
             </div>
         </Fragment>  
