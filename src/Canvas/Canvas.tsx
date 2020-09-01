@@ -34,6 +34,7 @@ const Canvas = ({
     const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
     const [strokeColor, setStrokeColor] = useState("black");
     const [drawnImageData, setDrawnImageData] = useState({});
+    const [result, setResult] = useState(1);
 
     //Function for getting coordinates value from mouse movement
     const getCoordinates = (event: MouseEvent): Coordinate | undefined => {
@@ -200,6 +201,28 @@ const Canvas = ({
         };
     },[exitPaint]);
 
+    function rmsDiff(data1: any, data2: any): any {
+        // var squares = 0;
+        // for(var i = 0; i<data1.length; i++){
+        //     squares += (data1[i]-data2[i])*(data1[i]-data2[i]);
+        // }
+        // var rms = Math.sqrt(squares/data1.length);
+        // setResult(rms);
+        // console.log("rms", rms);
+        // return rms;
+        // for (let i=0; i<data2.data.length; i++) {
+        //     console.log("data", data2.data[i]);
+        // }
+        console.log("data1", data1.data.length);
+        console.log("data1", data2);
+        // if(data1===data2) {
+        //     console.log("matched");
+        // }
+        // else {
+        //     console.log("not matched");
+        // }
+    }
+
     return (
         <Fragment>
             <div className={canvasCSS.canvasContainer}>
@@ -233,8 +256,13 @@ const Canvas = ({
                         <button className={canvasCSS.button} onClick={()=>drawDefaultImageData()}>Draw Default Image</button>
                     </div>
                 </div>
+                <div className={canvasCSS.element6}>
+                    <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
+                        <button className={canvasCSS.button} onClick={()=>rmsDiff(defaultImageData, drawnImageData)}>Get Difference</button>
+                    </div>
+                </div>
                 <div>
-                    {drawnImageData===defaultImageData ? "Matched": "Not Matched"}
+                    {result}
                 </div>
             </div>
         </Fragment>  
