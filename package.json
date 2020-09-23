@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "node-sass": "^4.13.1",
+    "paper": "^0.12.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "resemblejs": "^3.2.5"
   },
   "scripts": {
     "start": "react-scripts start",

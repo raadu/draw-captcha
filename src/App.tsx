@@ -2,17 +2,16 @@ import React, {useState} from 'react';
 import appCSS from './App.module.scss';
 import Canvas from './Canvas/Canvas';
 import DefaultCanvas from './DefaultCanvas/DefaultCanvas';
-import ImageDataContextProvider from './contexts/ImageDataContext';
+// import ImageDataContextProvider from './contexts/ImageDataContext';
 
 const App = () => {
   //States
   const [defaultImageData, setDefaultImageData] = useState({});
 
-  console.log("set default img data in app", defaultImageData);
+  // console.log("set default img data in app", defaultImageData);
 
   return (
     <div className={appCSS.mainWindow}>
-      <ImageDataContextProvider>
         <div className={appCSS.canvasContainer}>
           <div className={appCSS.canvas1}>
             <DefaultCanvas
@@ -29,7 +28,6 @@ const App = () => {
             />
           </div>
         </div>
-      </ImageDataContextProvider>
     </div>
   );
 } //end of App func comp

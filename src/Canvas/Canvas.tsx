@@ -7,6 +7,8 @@ import React, {
  } from 'react';
 import canvasCSS from './Canvas.module.scss';
 import ColorPicker from './../ColorPicker/ColorPicker';
+import Paper from 'paper';
+// import resemble from 'resemblejs';
 
 //Props passed for Canvas width and Height of the page
 interface CanvasProps {
@@ -35,6 +37,17 @@ const Canvas = ({
     const [strokeColor, setStrokeColor] = useState("black");
     const [drawnImageData, setDrawnImageData] = useState({});
     const [result, setResult] = useState(1);
+    const [drawnImageURL, setDrawnImageURL] = useState("sample/justLine.png");
+
+    const defaultImage = "sample/justLine.png";
+
+    // useEffect(() => {
+    //     let mdata = resemble(defaultImage).compareTo(drawnImageURL).onComplete(function(data: any)
+    //         {
+    //             return data;
+    //             // console.log("resemble data", data);
+    //         }
+    // }, [drawnImageURL]);
 
     //Function for getting coordinates value from mouse movement
     const getCoordinates = (event: MouseEvent): Coordinate | undefined => {
@@ -131,6 +144,15 @@ const Canvas = ({
             //copy the imagedata (exact copy of the drawn image will be pasted in canvas)
             // context.putImageData(imageData, 10, 70);
             // console.log("imagedata", imageData);
+            
+            // save canvas image as data url (png format by default)
+            let dataURL = canvas.toDataURL();
+            setDrawnImageURL(dataURL);
+            console.log("canvas image drawn", drawnImageURL);
+            
+            
+            
+            
             setDrawnImageData(imageData);
         }
     }
@@ -202,25 +224,7 @@ const Canvas = ({
     },[exitPaint]);
 
     function rmsDiff(data1: any, data2: any): any {
-        // var squares = 0;
-        // for(var i = 0; i<data1.length; i++){
-        //     squares += (data1[i]-data2[i])*(data1[i]-data2[i]);
-        // }
-        // var rms = Math.sqrt(squares/data1.length);
-        // setResult(rms);
-        // console.log("rms", rms);
-        // return rms;
-        // for (let i=0; i<data2.data.length; i++) {
-        //     console.log("data", data2.data[i]);
-        // }
-        console.log("data1", data1.data.length);
-        console.log("data1", data2);
-        // if(data1===data2) {
-        //     console.log("matched");
-        // }
-        // else {
-        //     console.log("not matched");
-        // }
+           console.log("diff");
     }
 
     return (
@@ -264,6 +268,7 @@ const Canvas = ({
                 <div>
                     {result}
                 </div>
+                <img src={drawnImageURL}/>
             </div>
         </Fragment>  
     );

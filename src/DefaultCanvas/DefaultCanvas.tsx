@@ -27,6 +27,7 @@ const DefaultCanvas = ({
     },[]);
 
 
+    // Function for draw image on canvas from default pic
     function drawImage() {
         if(!canvasRef.current) {
             return;
@@ -40,10 +41,9 @@ const DefaultCanvas = ({
         image.onload = () => {
             context?.drawImage(image, 0, 0);
         }
-
-        let imageData = context?.getImageData(0,0,width,height);
     }
 
+    // Function for copy drawn image data to the state
     function copyImageData() {
         if(!canvasRef.current) {
             return;
@@ -54,9 +54,7 @@ const DefaultCanvas = ({
 
         if(context) {
             let imageData = context.getImageData(0,0,width,height);
-            // if(imageData!==undefined) {
-            //     setImageData(imageData);
-            // }
+            
             console.log("imageData from defaultcanvas: ", imageData);
             setDefaultImageData(imageData);
         }
