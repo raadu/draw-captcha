@@ -8,7 +8,7 @@ import React, {
 import canvasCSS from './Canvas.module.scss';
 import ColorPicker from './../ColorPicker/ColorPicker';
 import Paper from 'paper';
-// import resemble from 'resemblejs';
+import resemble from 'resemblejs';
 
 //Props passed for Canvas width and Height of the page
 interface CanvasProps {
@@ -36,18 +36,25 @@ const Canvas = ({
     const [mousePosition, setMousePosition] = useState<Coordinate | undefined>(undefined);
     const [strokeColor, setStrokeColor] = useState("black");
     const [drawnImageData, setDrawnImageData] = useState({});
-    const [result, setResult] = useState(1);
+    const [result, setResult] = useState(null);
     const [drawnImageURL, setDrawnImageURL] = useState("sample/justLine.png");
 
     const defaultImage = "sample/justLine.png";
 
-    // useEffect(() => {
-    //     let mdata = resemble(defaultImage).compareTo(drawnImageURL).onComplete(function(data: any)
-    //         {
-    //             return data;
-    //             // console.log("resemble data", data);
-    //         }
-    // }, [drawnImageURL]);
+    console.log("default img data", defaultImageData);
+    console.log("drawn img", drawnImageURL);
+
+    // const fileToDataUri = (file) => new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.onload = (event) => {
+    //         resolve(event.target.result)
+    //     };
+    //     reader.readAsDataURL(file);
+    // })
+    
+    useEffect(() => {
+        
+    }, []);
 
     //Function for getting coordinates value from mouse movement
     const getCoordinates = (event: MouseEvent): Coordinate | undefined => {
@@ -148,11 +155,8 @@ const Canvas = ({
             // save canvas image as data url (png format by default)
             let dataURL = canvas.toDataURL();
             setDrawnImageURL(dataURL);
-            console.log("canvas image drawn", drawnImageURL);
-            
-            
-            
-            
+            // console.log("canvas image drawn", drawnImageURL);
+
             setDrawnImageData(imageData);
         }
     }
@@ -223,8 +227,13 @@ const Canvas = ({
         };
     },[exitPaint]);
 
-    function rmsDiff(data1: any, data2: any): any {
-           console.log("diff");
+    function getDifference(data1: any, data2: any): any {
+        resemble(data1).compareTo(data2).onComplete(function(data: any)
+        {
+            // console.log("resemble compare data", data);
+            setResult(data.misMatchPercentage);
+            // console.log("mis match percentage", data.misMatchPercentage, "%");
+        });
     }
 
     return (
@@ -262,13 +271,18 @@ const Canvas = ({
                 </div>
                 <div className={canvasCSS.element6}>
                     <div className={canvasCSS.clearButton} style={{width:`${width}px`}}>
-                        <button className={canvasCSS.button} onClick={()=>rmsDiff(defaultImageData, drawnImageData)}>Get Difference</button>
+                        <button 
+                            className={canvasCSS.button} 
+                            onClick={()=>getDifference(defaultImageData, drawnImageURL)}
+                            >
+                                Get Difference
+                            </button>
                     </div>
                 </div>
                 <div>
-                    {result}
+                    {result}% unmatched
                 </div>
-                <img src={drawnImageURL}/>
+                {/* <img src={drawnImageURL}/> */}
             </div>
         </Fragment>  
     );

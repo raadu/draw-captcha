@@ -55,8 +55,12 @@ const DefaultCanvas = ({
         if(context) {
             let imageData = context.getImageData(0,0,width,height);
             
-            console.log("imageData from defaultcanvas: ", imageData);
+            //Need to convert imageData to Blob
             setDefaultImageData(imageData);
+            // canvas.toBlob(function(blob) {
+            //     console.log("blbdata", blob);
+            //   }, 'image/png');
+            
         }
     }
     
