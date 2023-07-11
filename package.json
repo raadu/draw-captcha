@@ -4,11 +4,11 @@
   "private": true,
   "dependencies": {
     "@types/resemblejs": "^1.3.29",
-    "node-sass": "^4.13.1",
+    "node-sass": "^9.0.0",
     "paper": "^0.12.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "resemblejs": "^3.2.5"
   },
   "scripts": {
